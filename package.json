@@ -1,7 +1,7 @@
 {
   "name": "simple-ultra-db",
-  "version": "1.1.4",
-  "description": "",
+  "version": "1.2.3",
+  "description": "a simple db",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"

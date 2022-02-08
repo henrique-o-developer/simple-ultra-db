@@ -1,11 +1,17 @@
 const fs = require('fs')
 var jf = require('json-format');
 var config = {type: 'space', size: 4}
-
 class commands {
     save(obj, del) {
-        var url = obj.url.split(".")
         var data = JSON.parse(fs.readFileSync(obj.locale, 'utf8'))
+
+        if (this.databaseInteraction.data != data && obj instanceof databaseValue) {
+            this.databaseInteraction.data = data
+
+            this.save(this.databaseInteraction)
+        }
+
+        var url = obj.url.split(".")
         var evalstr = ""
         var brute = ""
         var opt = this.opt
@@ -55,11 +61,9 @@ class commands {
             url = query
         }
 
-        var retu = new databaseValue(this.locale, this.opt, ret, url)
-
-        ret.__proto__ = retu
+        var retu = new databaseValue(this.locale, this.opt, ret, url, this.databaseInteraction)
         
-        return this.opt.stacable?ret:ret.data
+        return this.opt.stacable?retu:retu.data
     }
 
     set(path, value) {
@@ -83,7 +87,7 @@ class commands {
                 url = this.url + "." + path
             }
 
-            var obj = new databaseValue(this.locale, this.opt, value, url)
+            var obj = new databaseValue(this.locale, this.opt, value, url, this.databaseInteraction)
 
             this.save(obj)
 
@@ -143,7 +147,7 @@ class commands {
             if (r.push) {
                 r.push(value)
 
-                this.save(new databaseValue(this.locale, this.opt, r, path))
+                this.save(new databaseValue(this.locale, this.opt, r, path, this.databaseInteraction))
 
                 return this.opt.stacable?this:this.data
             } else {
@@ -166,7 +170,7 @@ class commands {
                 url = this.url + "." + path
             }
 
-            this.save(new databaseValue(this.locale, this.opt, "", url), true)
+            this.save(new databaseValue(this.locale, this.opt, "", url), true, this.databaseInteraction)
 
             return true
         } else {
@@ -176,7 +180,6 @@ class commands {
         }
     }
 }
-
 class databaseInteraction extends commands {
     constructor(locale, opt) {
         super()
@@ -212,16 +215,18 @@ class databaseInteraction extends commands {
         this.opt = opt
         this.locale = locale
         this.url = ""
+        this.databaseInteraction = this
     }
 }
 
 class databaseValue extends commands {
-    constructor(locale, opt, data, url) {
+    constructor(locale, opt, data, url, dbInte) {
         super()
         this.url = url;
         this.opt = opt
         this.locale = locale
         this.data = data;
+        this.databaseInteraction = dbInte;
     }
 
     toString() {

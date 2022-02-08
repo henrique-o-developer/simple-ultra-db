@@ -1,6 +1,6 @@
 var i = require("./index.js")
-const levelDB = new i(__dirname+"/database/Level.json", {stacable: false});
+const levelDB = new i(__dirname+"/database/Level.json");
 
 
-levelDB.set("all", {try: {}})
-console.log(levelDB.get("all").try)
+levelDB.set("all", ["a", "b"])
+console.log(levelDB.get("all"))
