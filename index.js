@@ -57,7 +57,19 @@ class commands {
     }
 
     set(path, value) {
-        if (!(this instanceof databaseValue) && (path && value)) {
+        if (path && value == undefined && this instanceof databaseValue) {
+            console.log("set")
+            if (path == undefined) {
+                return new Error("value is undefined")
+            }
+    
+            this.data = path
+    
+            this.save(this)
+    
+            return this
+        } else if (path && value) {
+            console.log("by path")
             var url 
 
             if (this.url == "") {
@@ -71,16 +83,6 @@ class commands {
             this.save(obj)
 
             return obj
-        } else if (path && value == undefined) {
-            if (value == undefined) {
-                return new Error("value is undefined")
-            }
-    
-            this.data = value
-    
-            this.save(this)
-    
-            return this
         } else if (!path && value == undefined) {
             return new Error("path is null or value is undefined")
         }
@@ -105,7 +107,17 @@ class commands {
     }
 
     push(path, value) {
-        if (!(this instanceof databaseValue) && (path && value)) {
+       if (path && value == undefined && this instanceof databaseValue) {
+            if (this.data.push) {
+                this.data.push(path)
+    
+                this.save(this)
+            } else {
+                return new Error("push is only for arrays")
+            }
+    
+            return this
+        } else if (path && value) {
             var r = this.data
 
             path.split(".").forEach((v, i) => {
@@ -129,16 +141,6 @@ class commands {
             } else {
                 return new Error("value is undefined")
             }
-        } else if (path && value == undefined) {
-            if (this.data.push) {
-                this.data.push(value)
-    
-                this.save(this)
-            } else {
-                return new Error("push is only for arrays")
-            }
-    
-            return this
         } else if (!path && value == undefined) {
             return new Error("path is null and value is undefined")
         }

@@ -3,7 +3,7 @@ var db = new i("./database/Itens.json")
 
 //console.log(db, db.get("all"), db.get("all").get("all"), db.get("all.all"))
 
-console.log(db.get("all").set({}).setByPath("this", {}))
+console.log(db.get("all").set({try: 1.1, catch: 1}).set("this", {"1234": [5678, "9101112"], "131415": "161718"}))
 
 /*db.setByPath("try.try", "catch")
 
