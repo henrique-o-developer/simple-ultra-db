@@ -34,6 +34,8 @@ class commands {
     }
     
     get(query) {
+        query = query + ""
+
         var q = query.split(".")
         var ret = this.data||{}
         
@@ -57,8 +59,10 @@ class commands {
     }
 
     set(path, value) {
+        path = path + ""
+        value = value + ""
+
         if (path && value == undefined && this instanceof databaseValue) {
-            console.log("set")
             if (path == undefined) {
                 return new Error("value is undefined")
             }
@@ -69,7 +73,6 @@ class commands {
     
             return this
         } else if (path && value) {
-            console.log("by path")
             var url 
 
             if (this.url == "") {
@@ -80,6 +83,8 @@ class commands {
 
             var obj = new databaseValue(this.locale, this.opt, value, url)
 
+            console.log(obj)
+
             this.save(obj)
 
             return obj
@@ -89,6 +94,8 @@ class commands {
     }
 
     has(path) {
+        path = path + ""
+
         if (path) {
             var data = this.data
 
@@ -107,7 +114,10 @@ class commands {
     }
 
     push(path, value) {
-       if (path && value == undefined && this instanceof databaseValue) {
+        path = path + ""
+        value = value + ""
+
+        if (path && value == undefined && this instanceof databaseValue) {
             if (this.data.push) {
                 this.data.push(path)
     
@@ -147,6 +157,8 @@ class commands {
     }
 
     delete(path) {
+        path = path + ""
+
         if (path) {
             var url 
 
