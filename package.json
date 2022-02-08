@@ -1,6 +1,6 @@
 {
   "name": "simple-ultra-db",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,14 @@
   },
   "keywords": ["db", "simple", "json"],
   "author": "henrique rosario",
-  
+  "bugs": {
+    "url": "https://github.com/henrique-o-developer/simple-ultra-db"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+hhttps://github.com/henrique-o-developer/simple-ultra-db.git"
+  },
+  "homepage": "https://github.com/henrique-o-developer/simple-ultra-db",
   "license": "MIT",
   "dependencies": {
     "json-format": "^1.0.1"
