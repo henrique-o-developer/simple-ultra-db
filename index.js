@@ -54,14 +54,15 @@ class commands {
         } else {
             url = query
         }
+
+        var retu = new databaseValue(this.locale, this.opt, ret, url)
+
+        ret.__proto__ = retu
         
-        return new databaseValue(this.locale, this.opt, ret, url)
+        return this.opt.stacable?ret:ret.data
     }
 
     set(path, value) {
-        path = path + ""
-        value = value + ""
-
         if (path && value == undefined && this instanceof databaseValue) {
             if (path == undefined) {
                 return new Error("value is undefined")
@@ -71,8 +72,9 @@ class commands {
     
             this.save(this)
     
-            return this
+            return this.opt.stacable?this:this.data
         } else if (path && value) {
+            path += ""
             var url 
 
             if (this.url == "") {
@@ -83,11 +85,9 @@ class commands {
 
             var obj = new databaseValue(this.locale, this.opt, value, url)
 
-            console.log(obj)
-
             this.save(obj)
 
-            return obj
+            return this.opt.stacable?obj:obj.data
         } else if (!path && value == undefined) {
             return new Error("path is null or value is undefined")
         }
@@ -114,9 +114,6 @@ class commands {
     }
 
     push(path, value) {
-        path = path + ""
-        value = value + ""
-
         if (path && value == undefined && this instanceof databaseValue) {
             if (this.data.push) {
                 this.data.push(path)
@@ -126,8 +123,9 @@ class commands {
                 return new Error("push is only for arrays")
             }
     
-            return this
+            return this.opt.stacable?this:this.data
         } else if (path && value) {
+            path += ""
             var r = this.data
 
             path.split(".").forEach((v, i) => {
@@ -147,7 +145,7 @@ class commands {
 
                 this.save(new databaseValue(this.locale, this.opt, r, path))
 
-                return this
+                return this.opt.stacable?this:this.data
             } else {
                 return new Error("value is undefined")
             }
@@ -185,7 +183,7 @@ class databaseInteraction extends commands {
         if (!opt) opt = {}
         if (!opt.default) opt.default = {}
         if (!opt.config) opt.config = config 
-        if (!opt.autosave) opt.autosave = true
+        if (opt.stacable == undefined) opt.stacable = true
         
         if (!locale) {
             return console.error("locale is not defined")

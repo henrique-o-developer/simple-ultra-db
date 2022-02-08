@@ -12,9 +12,10 @@ or
     var db = new simpleUltraDb("./database/Itens", args)
 ```
 
-  **args:**
-    _config, param for json-formater, default: {type: 'space', size: 4}_
-    _default, value added on empty db, default: {}_
+&nbsp;&nbsp;**args:**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;_config, object, param for json-formater, default: {type: 'space', size: 4}_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;_default, object, value added on empty db, default: {}_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;_stacable, boolean, determines whether it returns the value or an instance of the class (both support staking commands ex: `db.get("item").get("item")`), default: true_
 
 ## get an item from db
 
