@@ -3,15 +3,15 @@ commands:
 
     create a db:
 
-    ```js
+```js
     var db = new simpleUltraDb("./database/Itens.json", args)
-    ```
+```
     
     or 
 
-    ```js
+```js
     var db = new simpleUltraDb("./database/Itens", args)
-    ```
+```
 
     args:
         config, param for json-formater, default: {type: 'space', size: 4}
@@ -20,66 +20,66 @@ commands:
 
     get an item from db:
 
-    ```js
+```js
     db.get("itemname").get("itemname")
-    ```
+```
 
     or
 
-    ```js 
+```js 
     db.get("itemname.itemname")
-    ```
+```
 
     set a item on db: 
 
-    ```js
+```js
     db.setByPath("item.item", "more one item")
-    ```
+```
 
     or 
 
-    ```js
+```js
     db.get("item.item").set("more one item")
-    ```
+```
 
     view if item exist on db:
 
-    ```js
+```js
     db.has("item.item")
-    ```
+```
 
     or
 
-    ```js
+```js
     db.get("item.item").has()
-    ```
+```
 
     push a iten in array in db:
 
-    ```js
+```js
     db.pushByPath("item.array", "item")
-    ```
+```
 
     or
 
-    ```js
+```js
     db.get("item.array").push("item")
-    ```
+```
 
     delete a key of db:
 
-    ```js
+```js
     db.delete("all.deleteThis")
-    ```
+```
 
     or
 
-    ```js
+```js
     db.get("all.deleteThis").delete()
-    ```
+```
 
     or 
 
-    ```js
+```js
     db.get("all").delete("deleteThis")
-    ```
+```

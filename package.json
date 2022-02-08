@@ -1,14 +1,15 @@
 {
   "name": "simple-ultra-db",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["db", "simple", "json"],
+  "author": "henrique rosario",
+  
+  "license": "MIT",
   "dependencies": {
     "json-format": "^1.0.1"
   }
