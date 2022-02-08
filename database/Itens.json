@@ -1,8 +1,7 @@
 {
-    "try": {
-        "try": "catch"
-    },
-    "test-push": [
-        "hehe"
-    ]
+    "all": {
+        "this": {
+            
+        }
+    }
 }

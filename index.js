@@ -56,24 +56,34 @@ class commands {
         return new databaseValue(this.locale, this.opt, ret, url)
     }
 
-    setByPath(path, value) {
-        if (!path || value == undefined) {
+    set(path, value) {
+        if (!(this instanceof databaseValue) && (path && value)) {
+            var url 
+
+            if (this.url == "") {
+                url = path
+            } else {
+                url = this.url + "." + path
+            }
+
+            var obj = new databaseValue(this.locale, this.opt, value, url)
+
+            this.save(obj)
+
+            return obj
+        } else if (path && value == undefined) {
+            if (value == undefined) {
+                return new Error("value is undefined")
+            }
+    
+            this.data = value
+    
+            this.save(this)
+    
+            return this
+        } else if (!path && value == undefined) {
             return new Error("path is null or value is undefined")
         }
-
-        var url 
-
-        if (this.url == "") {
-            url = path
-        } else {
-            url = this.url + "." + path
-        }
-
-        var obj = new databaseValue(this.locale, this.opt, value, url)
-
-        this.save(obj)
-
-        return obj
     }
 
     has(path) {
@@ -94,28 +104,43 @@ class commands {
         }
     }
 
-    pushByPath(path, value) {
-        var r = this.data
-        var deuErro = false
-        
-        path.split(".").forEach((v, i) => {
-            r = r[v]
+    push(path, value) {
+        if (!(this instanceof databaseValue) && (path && value)) {
+            var r = this.data
 
-            if (r == undefined && i != path.split(".").length-1) {
-                r = {}
+            path.split(".").forEach((v, i) => {
+                r = r[v]
+
+                if (r == undefined && i != path.split(".").length-1) {
+                    r = {}
+                }
+            })
+
+            if (r == undefined) {
+                return new Error("the path is invalid or not is a array")
             }
-        })
 
-        if (r == undefined) {
-            return new Error("the path is invalid or not is a array")
-        }
+            if (r.push) {
+                r.push(value)
 
-        if (r.push) {
-            r.push(value)
+                this.save(new databaseValue(this.locale, this.opt, r, path))
 
-            this.save(new databaseValue(this.locale, this.opt, r, path))
-        } else {
-            return new Error("value is undefined")
+                return this
+            } else {
+                return new Error("value is undefined")
+            }
+        } else if (path && value == undefined) {
+            if (this.data.push) {
+                this.data.push(value)
+    
+                this.save(this)
+            } else {
+                return new Error("push is only for arrays")
+            }
+    
+            return this
+        } else if (!path && value == undefined) {
+            return new Error("path is null and value is undefined")
         }
     }
 
@@ -189,26 +214,6 @@ class databaseValue extends commands {
 
     toString() {
         return JSON.stringify(data)+""
-    }
-
-    set(value) {
-        if (value == undefined) {
-            return new Error("value is undefined")
-        }
-
-        this.data = value
-
-        this.save(this)
-    }
-
-    push(value) {
-        if (this.data.push) {
-            this.data.push(value)
-
-            this.save(this)
-        } else {
-            return new Error("push is only for arrays")
-        }
     }
 }
 

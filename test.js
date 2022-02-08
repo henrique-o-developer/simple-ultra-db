@@ -1,11 +1,11 @@
 var i = require("./index.js")
 var db = new i("./database/Itens.json")
 
-console.log(db, db.get("all"), db.get("all").get("all"), db.get("all.all"))
+//console.log(db, db.get("all"), db.get("all").get("all"), db.get("all.all"))
 
-console.log(db.get("all").setByPath("all", {}).setByPath("this", {}))
+console.log(db.get("all").set({}).setByPath("this", {}))
 
-db.setByPath("try.try", "catch")
+/*db.setByPath("try.try", "catch")
 
 console.log(db.get("all.all.all").has(), db.get("all").has(), db.has("all.all.all"), db.has("all"))
 
@@ -15,4 +15,4 @@ console.log(v)
 
 console.log(db.pushByPath("test-push", "hehe"))
 
-db.delete("all")
+db.delete("all")*/
