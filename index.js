@@ -183,7 +183,7 @@ class databaseInteraction extends commands {
         if (!opt) opt = {}
         if (!opt.default) opt.default = {}
         if (!opt.config) opt.config = config 
-        if (opt.stacable == undefined) opt.stacable = true
+        if (opt.stacable == undefined) opt.stacable = false
         
         if (!locale) {
             return console.error("locale is not defined")
