@@ -32,7 +32,7 @@ or
 ## set a item on db
 
 ```js
-    db.setByPath("item.item", "more one item")
+    db.set("item.item", "more one item")
 ```
 
 or 
@@ -56,7 +56,7 @@ or
 ## push a iten in array in db
 
 ```js
-    db.pushByPath("item.array", "item")
+    db.push("item.array", "item")
 ```
 
 or
